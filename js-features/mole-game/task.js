@@ -17,7 +17,7 @@ for (let i = 1; i < 10; i++) {
             document.getElementById('lost').textContent = bossShot;
             if (bossShot === 5) {
                 alert('Поражение((');
-                return location.reload();
+                return bossShot = 0;
             }
         }
     }  
