@@ -9,7 +9,11 @@ for (let i = 1; i < 10; i++) {
             document.getElementById('dead').textContent = successShot;
             if (successShot === 10) {
                 alert('Вы победили!');
-                return location.reload();
+                
+                bossShot = 0;
+                successShot = 0;
+                document.getElementById('dead').textContent = 0
+                document.getElementById('lost').textContent = 0
             }
         }
         else {
@@ -18,6 +22,9 @@ for (let i = 1; i < 10; i++) {
             if (bossShot === 5) {
                 alert('Поражение((');
                 bossShot = 0;
+                successShot = 0;
+                document.getElementById('dead').textContent = 0
+                document.getElementById('lost').textContent = 0
             }
         }
     }  
