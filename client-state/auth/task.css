@@ -45,3 +45,8 @@
   display: block;
   text-align: center;
 }
+
+.exit_button {
+  margin-top: -5px;
+  margin-left: 10px;
+}
