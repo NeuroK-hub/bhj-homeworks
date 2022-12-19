@@ -1,36 +1,65 @@
-const addTaskButton = document.getElementById('tasks__add');
-const inputTaskField = document.getElementById('task__input');
-const taskList =  document.getElementById('tasks__list');
+const inputElement = document.querySelector('.tasks__input');
+const addButton = document.querySelector('.tasks__add');
+const tasksList = document.querySelector('.tasks__list');
+const tasksInput = document.querySelector('.tasks__input');
+let tasksArray;
+let i = 0;
 
-function addTask(){
-    if (inputTaskField.value) {
-        taskList.insertAdjacentHTML('beforeEnd', 
-            `<div class="task"> 
-                <div class="task__title">
-                ${inputTaskField.value}
-                </div>
-                <a href="#" class="task__remove">&times;</a>
-            </div>`);
+function addTaskHTML() {
+    if (inputElement.value) {
+        tasksList.insertAdjacentHTML('afterbegin', `<div class="task number_${i}">
+        <div class="task__title">
+          ${inputElement.value}
+        </div>
+        <a href="#" class="task__remove">&times;</a>
+      </div>`);
+
+        inputElement.value = '';
+
+        let element = document.querySelector(`.number_${i + ''}`);
+
+        tasksList.firstElementChild.querySelector('.task__remove').addEventListener('click', (event) => {
+            event.preventDefault();
+
+            element.remove();
+        })
+
+        i++;
     }
-    inputTaskField.value = null;
 }
 
-inputTaskField.addEventListener('keyup', (ev) => {
-    if (ev.key === 'Enter') {
-        addTask;
+function setLocalStorage() {
+    localStorage.setItem('tasksListHTML', document.querySelector('.tasks__list').innerHTML)
+}
+
+function getLocalStorage() {
+    if (localStorage.getItem('tasksListHTML')) {
+        document.querySelector('.tasks__list').innerHTML = localStorage.getItem('tasksListHTML');
     }
-})
-addTaskButton.addEventListener('click', (ev) => {
-    ev.preventDefault();
-    addTask();
+
+    tasksArray = Array.from(document.querySelectorAll('.task'));
+
+    tasksArray.forEach((e) => {
+        e.className = 'task';
+
+        e.querySelector('.task__remove').addEventListener('click', (event) => {
+            event.preventDefault();
+            e.remove();
+        })
+    })
+}
+
+addButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    addTaskHTML();
 })
 
-taskList.addEventListener('click', (ev) => {
-    ev.preventDefault();
-    const deleteTaskButton = document.querySelectorAll('.task__remove');
-    deleteTaskButton.forEach(element => {
-        if (element === ev.target) {
-            element.parentElement.remove();
-        }
-    });
-}) 
+tasksInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        addTaskHTML();
+    }
+})
+
+window.addEventListener('beforeunload', setLocalStorage)
+window.addEventListener('load', getLocalStorage)
