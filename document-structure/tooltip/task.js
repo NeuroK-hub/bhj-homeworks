@@ -1,5 +1,6 @@
 const linksArray = Array.from(document.querySelectorAll('.has-tooltip'));
 
+
 linksArray.forEach((e, index) => {
     let tooltipElement;
 
@@ -9,16 +10,19 @@ linksArray.forEach((e, index) => {
         ${e.title}
         </div>`;
             break;
+
         case ('right'):
             tooltipElement = `<div class="tooltip" style="left: ${e.getBoundingClientRect().left + (e.getBoundingClientRect().width)}px; top: ${e.getBoundingClientRect().top}px">
         ${e.title}
         </div>`;
             break;
+
         case ('left'):
             tooltipElement = `<div class="tooltip" style="left: ${e.getBoundingClientRect().left - 240}px; top: ${e.getBoundingClientRect().top}px">
         ${e.title}
         </div>`;
             break;
+
         case ('bottom'):
             tooltipElement = `<div class="tooltip" style="left: ${e.getBoundingClientRect().left}px; top: ${e.getBoundingClientRect().top + e.getBoundingClientRect().height}px">
         ${e.title}
@@ -27,6 +31,7 @@ linksArray.forEach((e, index) => {
     }
 
     e.insertAdjacentHTML('afterEnd', tooltipElement);
+
     e.addEventListener('click', (event) => {
         event.preventDefault();
 
@@ -43,6 +48,7 @@ linksArray.forEach((e, index) => {
 })
 
 const tooltipsArray = Array.from(document.querySelectorAll('.tooltip'));
+
 
 window.addEventListener('scroll', () => {
     tooltipsArray.forEach((e) => {
